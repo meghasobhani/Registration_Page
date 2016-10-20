@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Registration Page</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+		<script  type="text/javascript" src="storage.js"></script>
+		
+</head>
+	
+	<body style="background-color:#cc0066"; >
+		<h1 align="center"> Registration Page</h1>
+		<div class = "connection-status">You are online</div>
+		<form  class="formstyle">
+			<br> <br>
+			<label>
+			User ID:</label> &nbsp; &nbsp; 
+			<input type = "text" name="userID"  required id="username" > <br> <br> <br>
+			Password: &nbsp; &nbsp;  
+			<input type = "password" name="password" required id="pwd" > <br> <br> <br>
+			<div  id="pwd_block" >
+			<h5>Password must meet the following requirements</h5>
+			<ul>
+				<li id="length" class="invalid">Atleast 8 characters and Maximum 20 characters</li>
+		        <li id="alpha" class="invalid">Atleast 4 alphabets</li>
+		        <li id="Special" class="invalid">1 number or special character</li>
+		        <li id="Space" class="invalid">No white spaces</li>
+		        <li id="userid" class="invalid">Must not be same as User ID</li>
+    	    </ul>
+			</div>
+			<br>
+			Verify Password: &nbsp; &nbsp; 
+			<input type = "password" name="verifypassword" required  id="vpwd"> <br> <br> <br>
+			Email Address: &nbsp; &nbsp;  
+			<input type = "email" name="email" id="email" required placeholder="example@abc.com"> <br> <br> <br>
+			Verify Email: &nbsp; &nbsp; 
+			<input type = "text" name="verifyemail" required id="vemail"> <br> <br> <br>
+			Security Question: &nbsp; &nbsp; 
+			<input list ="Security Questions">
+				<datalist id="Security Questions">
+					<option value="Sum of 2+3=" id="Q1">
+					<option value="Sum of 100+200=" id="Q2">
+					<option value="23x100=" id="Q3">
+					<option value="Capital of India ?" id="Q4">
+					<option value="Capital of USA ?" id="Q5">
+				</datalist> <br> <br> <br>
+			Security Answer: &nbsp; &nbsp; 
+			<input type = "text" name="answer" required id="ans"> <br> <br> <br>
+			Mobile: &nbsp; &nbsp; 
+			<input type = "tel" name="mobile" required id="mob"> <br> <br> <br>
+			<label>Address:</label><br>
+			<textarea rows="4" cols="40">
+				
+			</textarea> 
+			 <br> <br> <br>
+			 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			 Areas you may be interested in, please select one or more:<br>
+			 <textarea rows="4" cols="40" id="add">
+				
+			</textarea><br>&nbsp; &nbsp;<br><br>
+			<input type="button" value="Register" onclick="checkForm()"> &nbsp; &nbsp;
+			<input type="button" value="Cancel"> &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; 
+			<progress max="50" class="Bar" id="prog" text="Strong"></progress>
+		</form>
+		<script type="text/javascript">
+		$(document).ready(function() {
+		 var x = 0;
+		$('input[ID=pwd]').keyup(function() {
+		 var pswd = $(this).val();
+		  if ( pswd.match( /^.{8,20}$/) ) {
+   		    $('#length').removeClass('invalid').addClass('valid');
+   		    x=x+10
+    		document.getElementById('prog').value =x;
+		} else {
+		    $('#length').removeClass('valid').addClass('invalid');
+		    x = x - 10;
+       		document.getElementById('prog').value =x;
+		}
+		if ( pswd.match(/^[a-zA-Z0-9]{4,}/)) {
+		    $('#alpha').removeClass('invalid').addClass('valid');
+		    x=x+10
+    		document.getElementById('prog').value =x;
+		} else {
+		    $('#alpha').removeClass('valid').addClass('invalid');
+		    x=x-10
+    		document.getElementById('prog').value =x;
+		}
+		if ( pswd.match(/\d/) || pswd.match(/[-!$#%]/)) {
+		    $('#Special').removeClass('invalid').addClass('valid');
+		    x=x+10
+    		document.getElementById('prog').value =x;
+		} else {
+		    $('#Special').removeClass('valid').addClass('invalid');
+		    x=x-10
+    		document.getElementById('prog').value =x;
+		}
+		if ( pswd.match(/^\S+$/)) {
+		    $('#Space').removeClass('invalid').addClass('valid');
+		} else {
+		    $('#Space').removeClass('valid').addClass('invalid');
+		}
+		if (document.getElementById('username').value === document.getElementById('pwd').value) {
+  			$('#userid').removeClass('valid').addClass('invalid');
+		} else {
+		    $('#userid').removeClass('invalid').addClass('valid');
+		}
+		
+		}).focus(function() {
+		    $('#pwd_block').show();
+		}).blur(function() {
+		    $('#pwd_block').hide();
+		});
+	});
+		
+		window.addEventListener("offline", function(e) {
+			alert('offline');
+  			$('.connection-status').text("You are offline");
+  			$('.connection-status').css('background-color','rgb(169,169,169)');
+		}, false);
+		window.addEventListener("online", function(e) {
+			alert('online');
+  			$('.connection-status').text("You are online");
+  			$('.connection-status').css('background-color','rgb(169,169,169)');
+		}, false);
+</script>
+		
+	</body>
+</html>
+
+		
